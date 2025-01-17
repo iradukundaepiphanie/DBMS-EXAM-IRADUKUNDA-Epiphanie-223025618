@@ -1,0 +1,712 @@
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 11
+Server version: 8.3.0 MySQL Community Server - GPL
+
+Copyright (c) 2000, 2024, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> create database epiphanie;
+Query OK, 1 row affected (0.00 sec)
+
+mysql> use epiphanie;
+Database changed
+mysql> create table client_master(client_no int (10) primary, key name varchar (34), adress varchar (19),city varchar (28),state varchar (30),bal_due int);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ', key name varchar (34), adress varchar (19),city varchar (28),state varchar (30' at line 1
+mysql> create table client_master(client_no int (10) primary key, name varchar (34), adress varchar (19),city varchar (28),state varchar (30),bal_due int);
+Query OK, 0 rows affected, 1 warning (0.02 sec)
+
+mysql> insert into client_master values(1,'keza','muhanga','nyamabuye','rwanda',110000);
+Query OK, 1 row affected (0.02 sec)
+
+mysql> insert into client_master values(2,'karabo','kamonyi','ruyenzi','rwanda',210000);
+Query OK, 1 row affected (0.00 sec)
+
+mysql>  insert into client_master values(3,'mwiza','mwanza','daarselam','tanzania',300000);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into client_master values(4,'Ngabo','kicukiro','kigali','rwanda',120000);
+Query OK, 1 row affected (0.00 sec)
+
+mysql>  insert into client_master values(5,'Rwema','Gasabo','Kigali','Rwanda',250000);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> select*from client_master;
++-----------+--------+----------+-----------+----------+---------+
+| client_no | name   | adress   | city      | state    | bal_due |
++-----------+--------+----------+-----------+----------+---------+
+|         1 | keza   | muhanga  | nyamabuye | rwanda   |  110000 |
+|         2 | karabo | kamonyi  | ruyenzi   | rwanda   |  210000 |
+|         3 | mwiza  | mwanza   | daarselam | tanzania |  300000 |
+|         4 | Ngabo  | kicukiro | kigali    | rwanda   |  120000 |
+|         5 | Rwema  | Gasabo   | Kigali    | Rwanda   |  250000 |
++-----------+--------+----------+-----------+----------+---------+
+5 rows in set (0.02 sec)
+
+mysql> select name from client_master where bal_due>120000;
++--------+
+| name   |
++--------+
+| karabo |
+| mwiza  |
+| Rwema  |
++--------+
+3 rows in set (0.00 sec)
+
+mysql> select name from client_master where bal_due>5000;
++--------+
+| name   |
++--------+
+| keza   |
+| karabo |
+| mwiza  |
+| Ngabo  |
+| Rwema  |
++--------+
+5 rows in set (0.00 sec)
+
+mysql> re name client_master to client;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 're name client_master to client' at line 1
+mysql> UPDATE Client_master
+    -> SET bal_due = 5100
+    -> WHERE ClientNO = 'C123';
+ERROR 1054 (42S22): Unknown column 'ClientNO' in 'where clause'
+mysql> update client_master set bal due+5100;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'due+5100' at line 1
+mysql> update client_master set bal due = 5100;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'due = 5100' at line 1
+mysql> rename table client_master to client13;
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> select client_master;
+ERROR 1054 (42S22): Unknown column 'client_master' in 'field list'
+mysql> select*from client_master;
+ERROR 1146 (42S02): Table 'epiphanie.client_master' doesn't exist
+mysql>  select*from client_master;
+ERROR 1146 (42S02): Table 'epiphanie.client_master' doesn't exist
+mysql> select*from client13;
++-----------+--------+----------+-----------+----------+---------+
+| client_no | name   | adress   | city      | state    | bal_due |
++-----------+--------+----------+-----------+----------+---------+
+|         1 | keza   | muhanga  | nyamabuye | rwanda   |  110000 |
+|         2 | karabo | kamonyi  | ruyenzi   | rwanda   |  210000 |
+|         3 | mwiza  | mwanza   | daarselam | tanzania |  300000 |
+|         4 | Ngabo  | kicukiro | kigali    | rwanda   |  120000 |
+|         5 | Rwema  | Gasabo   | Kigali    | Rwanda   |  250000 |
++-----------+--------+----------+-----------+----------+---------+
+5 rows in set (0.01 sec)
+
+mysql> rename table client13 to client12;
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> select*from client12;
++-----------+--------+----------+-----------+----------+---------+
+| client_no | name   | adress   | city      | state    | bal_due |
++-----------+--------+----------+-----------+----------+---------+
+|         1 | keza   | muhanga  | nyamabuye | rwanda   |  110000 |
+|         2 | karabo | kamonyi  | ruyenzi   | rwanda   |  210000 |
+|         3 | mwiza  | mwanza   | daarselam | tanzania |  300000 |
+|         4 | Ngabo  | kicukiro | kigali    | rwanda   |  120000 |
+|         5 | Rwema  | Gasabo   | Kigali    | Rwanda   |  250000 |
++-----------+--------+----------+-----------+----------+---------+
+5 rows in set (0.01 sec)
+
+mysql> update client_master set bal_due='5100' where client_no=1;
+ERROR 1146 (42S02): Table 'epiphanie.client_master' doesn't exist
+mysql> update client12 set bal_due='5100' where client_no=1;
+Query OK, 1 row affected (0.02 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select client12;
+ERROR 1054 (42S22): Unknown column 'client12' in 'field list'
+mysql> update client12 set bal_due='5100' where client_no=1;
+Query OK, 0 rows affected (0.00 sec)
+Rows matched: 1  Changed: 0  Warnings: 0
+
+mysql> select*from client 12;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '12' at line 1
+mysql> select*from client12;
++-----------+--------+----------+-----------+----------+---------+
+| client_no | name   | adress   | city      | state    | bal_due |
++-----------+--------+----------+-----------+----------+---------+
+|         1 | keza   | muhanga  | nyamabuye | rwanda   |    5100 |
+|         2 | karabo | kamonyi  | ruyenzi   | rwanda   |  210000 |
+|         3 | mwiza  | mwanza   | daarselam | tanzania |  300000 |
+|         4 | Ngabo  | kicukiro | kigali    | rwanda   |  120000 |
+|         5 | Rwema  | Gasabo   | Kigali    | Rwanda   |  250000 |
++-----------+--------+----------+-----------+----------+---------+
+5 rows in set (0.00 sec)
+
+mysql> create table department( DeptID INT PRIMARY KEY,
+    ->     DeptName VARCHAR(50),
+    ->     Location VARCHAR(50),
+    ->     Manager VARCHAR(50),
+    ->     EstablishedYear INT
+    -> ;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 5
+mysql> create table department(deptid int primary key,deptname varchar(50),location varchar(50),manager varchar(50),establishedyear int;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 1
+mysql> create table department(deptid int primary key,deptname varchar(50),location varchar(50),manager varchar(50),establishedyear int);
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> insert into department(11,'directing','kimisagara','kalisa',2016);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '11,'directing','kimisagara','kalisa',2016)' at line 1
+mysql> insert into department(11,'directing','kimisagara','kalisa', 2016);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '11,'directing','kimisagara','kalisa', 2016)' at line 1
+mysql> insert into department values (11,'directing','kimisagara','kalisa', 2016);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> select*from department;
++--------+-----------+------------+---------+-----------------+
+| deptid | deptname  | location   | manager | establishedyear |
++--------+-----------+------------+---------+-----------------+
+|     11 | directing | kimisagara | kalisa  |            2016 |
++--------+-----------+------------+---------+-----------------+
+1 row in set (0.00 sec)
+
+mysql> insert into department values(12,'organising','karambi','Karangwa',2011);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into department values(13,'managing','musanze','umuragwa',2012);
+Query OK, 1 row affected (0.00 sec)
+
+mysql>  insert into department values(14,'BIT','muhanga','musekura',2020);
+Query OK, 1 row affected (0.00 sec)
+
+mysql>  insert into department values(15,'ACC','Huye','Rugamba',2021);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> select*from department;
++--------+------------+------------+----------+-----------------+
+| deptid | deptname   | location   | manager  | establishedyear |
++--------+------------+------------+----------+-----------------+
+|     11 | directing  | kimisagara | kalisa   |            2016 |
+|     12 | organising | karambi    | Karangwa |            2011 |
+|     13 | managing   | musanze    | umuragwa |            2012 |
+|     14 | BIT        | muhanga    | musekura |            2020 |
+|     15 | ACC        | Huye       | Rugamba  |            2021 |
++--------+------------+------------+----------+-----------------+
+5 rows in set (0.00 sec)
+
+mysql> create table employee(empid int primary key,emp name varchar(50),salary int,age int ,year int);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'name varchar(50),salary int,age int ,year int)' at line 1
+mysql> create table employee(empidint primary key,empname varchar(50),salary int,age int ,year int);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'primary key,empname varchar(50),salary int,age int ,year int)' at line 1
+mysql> create table employee(empid int primary key,empname varchar(50),salary int,age int ,year int);
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> insert into employee values(101,'emelyne',30000,22,2012);
+Query OK, 1 row affected (0.01 sec)
+
+mysql>  insert into employee values(102,'eric',40000,21,2013);
+Query OK, 1 row affected (0.00 sec)
+
+mysql>  insert into employee values(103,'kayisire',50000,25,2020);
+Query OK, 1 row affected (0.00 sec)
+
+mysql>  insert into employee values(104,'rwasa',100000,30,2021);
+Query OK, 1 row affected (0.00 sec)
+
+mysql>  insert into employee values(105,'kamali',120000,28,2022);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> select*from employee;
++-------+----------+--------+------+------+
+| empid | empname  | salary | age  | year |
++-------+----------+--------+------+------+
+|   101 | emelyne  |  30000 |   22 | 2012 |
+|   102 | eric     |  40000 |   21 | 2013 |
+|   103 | kayisire |  50000 |   25 | 2020 |
+|   104 | rwasa    | 100000 |   30 | 2021 |
+|   105 | kamali   | 120000 |   28 | 2022 |
++-------+----------+--------+------+------+
+5 rows in set (0.00 sec)
+
+mysql> desc employee;
++---------+-------------+------+-----+---------+-------+
+| Field   | Type        | Null | Key | Default | Extra |
++---------+-------------+------+-----+---------+-------+
+| empid   | int         | NO   | PRI | NULL    |       |
+| empname | varchar(50) | YES  |     | NULL    |       |
+| salary  | int         | YES  |     | NULL    |       |
+| age     | int         | YES  |     | NULL    |       |
+| year    | int         | YES  |     | NULL    |       |
++---------+-------------+------+-----+---------+-------+
+5 rows in set (0.04 sec)
+
+mysql> select department.name,emname from department left outer join employees.empid;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 1
+mysql> select department.empname,empname from department left outer join employees.empid;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 1
+mysql> select department.deptname, employee.empname from department left outer join employees on employee.empid;
+ERROR 1146 (42S02): Table 'epiphanie.employees' doesn't exist
+mysql> select department.deptname, employee.empname from department left outer join employees on employee.empid;
+ERROR 1146 (42S02): Table 'epiphanie.employees' doesn't exist
+mysql> select department.deptname, employee.empname from department left outer join employee on employee.empid;
++------------+----------+
+| deptname   | empname  |
++------------+----------+
+| directing  | kamali   |
+| directing  | rwasa    |
+| directing  | kayisire |
+| directing  | eric     |
+| directing  | emelyne  |
+| organising | kamali   |
+| organising | rwasa    |
+| organising | kayisire |
+| organising | eric     |
+| organising | emelyne  |
+| managing   | kamali   |
+| managing   | rwasa    |
+| managing   | kayisire |
+| managing   | eric     |
+| managing   | emelyne  |
+| BIT        | kamali   |
+| BIT        | rwasa    |
+| BIT        | kayisire |
+| BIT        | eric     |
+| BIT        | emelyne  |
+| ACC        | kamali   |
+| ACC        | rwasa    |
+| ACC        | kayisire |
+| ACC        | eric     |
+| ACC        | emelyne  |
++------------+----------+
+25 rows in set (0.01 sec)
+
+mysql> select department.deptname, employee.empname from department right outer join employee on employee.empid;
++------------+----------+
+| deptname   | empname  |
++------------+----------+
+| ACC        | emelyne  |
+| BIT        | emelyne  |
+| managing   | emelyne  |
+| organising | emelyne  |
+| directing  | emelyne  |
+| ACC        | eric     |
+| BIT        | eric     |
+| managing   | eric     |
+| organising | eric     |
+| directing  | eric     |
+| ACC        | kayisire |
+| BIT        | kayisire |
+| managing   | kayisire |
+| organising | kayisire |
+| directing  | kayisire |
+| ACC        | rwasa    |
+| BIT        | rwasa    |
+| managing   | rwasa    |
+| organising | rwasa    |
+| directing  | rwasa    |
+| ACC        | kamali   |
+| BIT        | kamali   |
+| managing   | kamali   |
+| organising | kamali   |
+| directing  | kamali   |
++------------+----------+
+25 rows in set (0.00 sec)
+
+mysql> select AVG(salary) from employee where empid=105;
++-------------+
+| AVG(salary) |
++-------------+
+| 120000.0000 |
++-------------+
+1 row in set (0.02 sec)
+
+mysql> create table student(studentid varchar(5),fullnames varchar(25),gender varchar(6),age int(2),department varchar(30);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 1
+mysql> create table student(studentid varchar(5),fullnames varchar(25),gender varchar(6),age int(2),department varchar(30));
+Query OK, 0 rows affected, 1 warning (0.02 sec)
+
+mysql> insert into student values('S214','Mutima marie','male',22,'BIT');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into student values('S214','Mutima marie','female',22,'BIT');
+Query OK, 1 row affected (0.00 sec)
+
+mysql>  insert into student values('S215','gatoshye fiston','male',23,'BIT');
+Query OK, 1 row affected (0.00 sec)
+
+mysql>  insert into student values('S216','umukunzi emmy','male',26,'ACC');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into student values('S21','Nibeza joy','female',23,'Acc');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> select*from student;
++-----------+-----------------+--------+------+------------+
+| studentid | fullnames       | gender | age  | department |
++-----------+-----------------+--------+------+------------+
+| S214      | Mutima marie    | male   |   22 | BIT        |
+| S214      | Mutima marie    | female |   22 | BIT        |
+| S215      | gatoshye fiston | male   |   23 | BIT        |
+| S216      | umukunzi emmy   | male   |   26 | ACC        |
+| S21       | Nibeza joy      | female |   23 | Acc        |
++-----------+-----------------+--------+------+------------+
+5 rows in set (0.00 sec)
+
+mysql> select*from student as list_of_student;
++-----------+-----------------+--------+------+------------+
+| studentid | fullnames       | gender | age  | department |
++-----------+-----------------+--------+------+------------+
+| S214      | Mutima marie    | male   |   22 | BIT        |
+| S214      | Mutima marie    | female |   22 | BIT        |
+| S215      | gatoshye fiston | male   |   23 | BIT        |
+| S216      | umukunzi emmy   | male   |   26 | ACC        |
+| S21       | Nibeza joy      | female |   23 | Acc        |
++-----------+-----------------+--------+------+------------+
+5 rows in set (0.00 sec)
+
+mysql> select full name from student where gender='female';
+ERROR 1054 (42S22): Unknown column 'full' in 'field list'
+mysql> select fullname from student where gender='female';
+ERROR 1054 (42S22): Unknown column 'fullname' in 'field list'
+mysql> select fullnames from student where gender='female';
++--------------+
+| fullnames    |
++--------------+
+| Mutima marie |
+| Nibeza joy   |
++--------------+
+2 rows in set (0.00 sec)
+
+mysql> select fullnames from student where gender='male';
++-----------------+
+| fullnames       |
++-----------------+
+| Mutima marie    |
+| gatoshye fiston |
+| umukunzi emmy   |
++-----------------+
+3 rows in set (0.00 sec)
+
+mysql> insert  into student values('s217','karasira kelia','female',21,'BIT');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert  into student values('s217','karasira kelia','female',19,'BIT');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> select*from student;
++-----------+-----------------+--------+------+------------+
+| studentid | fullnames       | gender | age  | department |
++-----------+-----------------+--------+------+------------+
+| S214      | Mutima marie    | male   |   22 | BIT        |
+| S214      | Mutima marie    | female |   22 | BIT        |
+| S215      | gatoshye fiston | male   |   23 | BIT        |
+| S216      | umukunzi emmy   | male   |   26 | ACC        |
+| S21       | Nibeza joy      | female |   23 | Acc        |
+| s217      | karasira kelia  | female |   21 | BIT        |
+| s217      | karasira kelia  | female |   19 | BIT        |
++-----------+-----------------+--------+------+------------+
+7 rows in set (0.00 sec)
+
+mysql> delete from student where age<20;
+Query OK, 1 row affected (0.01 sec)
+
+mysql> select student;
+ERROR 1054 (42S22): Unknown column 'student' in 'field list'
+mysql> select*from student;
++-----------+-----------------+--------+------+------------+
+| studentid | fullnames       | gender | age  | department |
++-----------+-----------------+--------+------+------------+
+| S214      | Mutima marie    | male   |   22 | BIT        |
+| S214      | Mutima marie    | female |   22 | BIT        |
+| S215      | gatoshye fiston | male   |   23 | BIT        |
+| S216      | umukunzi emmy   | male   |   26 | ACC        |
+| S21       | Nibeza joy      | female |   23 | Acc        |
+| s217      | karasira kelia  | female |   21 | BIT        |
++-----------+-----------------+--------+------+------------+
+6 rows in set (0.00 sec)
+
+mysql> create table employees(employee_idint primary key,first_name varchar(30),last_name varchar(50),email varchar(40),phone_numbervarchar(30),hire_date int,job_id int,salary varchar(20),commission_pct varchar(50),manager_id int,department_id int);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'primary key,first_name varchar(30),last_name varchar(50),email varchar(40),phone' at line 1
+mysql> create table employees(employee_idint primary key,first_name varchar(30),last_name varchar(50),email varchar(40),phone_numbervarchar(30),hire_date int,job_idint,salary varchar(20),commission_pct varchar(50),manager_idint,department_idint);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'primary key,first_name varchar(30),last_name varchar(50),email varchar(40),phone' at line 1
+mysql>  CREATE TABLE EMPLOYEE(EMPLOYEE_ID INT(10),FIRST_NAME CHAR(10),LAST_NAME CHAR(10),EMAIL CHAR(10),PHONE_NUMBER INT(7),HIRE_DATE DATE,JOB_ID INT(10),SALARY DECIMAL(8),COMMISSION_PCT DECIMAL(8),MANAGER_ID INT(6),DEPARTMENT_ID INT(6));
+ERROR 1050 (42S01): Table 'employee' already exists
+mysql>  CREATE TABLE employees(EMPLOYEE_ID INT(10),FIRST_NAME CHAR(10),LAST_NAME CHAR(10),EMAIL CHAR(10),PHONE_NUMBER INT(7),HIRE_DATE DATE,JOB_ID INT(10),SALARY DECIMAL(8),COMMISSION_PCT DECIMAL(8),MANAGER_ID INT(6),DEPARTMENT_ID INT(6));
+Query OK, 0 rows affected, 5 warnings (0.01 sec)
+
+mysql>  INSERT INTO employees VALUES('512','Nula','claire','nuclai','0745658','17/07/024','90','4000','2000','78','40');
+Query OK, 1 row affected, 1 warning (0.00 sec)
+
+mysql>  INSERT INTO EMPLOYEE VALUES('256','KAMANA','BILLY','kmn bill','0745658','17/07/024','90','4000','2000','78','40');
+ERROR 1136 (21S01): Column count doesn't match value count at row 1
+mysql>  INSERT INTO EMPLOYEE VALUES('256','KAMANA','BILLY','kmn bill','0745658','17/07/024','80','4000','2000','78','40');
+ERROR 1136 (21S01): Column count doesn't match value count at row 1
+mysql>  INSERT INTO employees VALUES('256','KAMANA','BILLY','kmn bill','0745658','17/07/024','80','4000','2000','78','40');
+Query OK, 1 row affected, 1 warning (0.00 sec)
+
+mysql>  INSERT INTO employees VALUES('256','gwiza','bontee','bontee','0745667','12/07/023','860','4005','3000','78','30');
+Query OK, 1 row affected, 1 warning (0.00 sec)
+
+mysql> select *from employee;
++-------+----------+--------+------+------+
+| empid | empname  | salary | age  | year |
++-------+----------+--------+------+------+
+|   101 | emelyne  |  30000 |   22 | 2012 |
+|   102 | eric     |  40000 |   21 | 2013 |
+|   103 | kayisire |  50000 |   25 | 2020 |
+|   104 | rwasa    | 100000 |   30 | 2021 |
+|   105 | kamali   | 120000 |   28 | 2022 |
++-------+----------+--------+------+------+
+5 rows in set (0.00 sec)
+
+mysql> select*from employees;
++-------------+------------+-----------+----------+--------------+------------+--------+--------+----------------+------------+---------------+
+| EMPLOYEE_ID | FIRST_NAME | LAST_NAME | EMAIL    | PHONE_NUMBER | HIRE_DATE  | JOB_ID | SALARY | COMMISSION_PCT | MANAGER_ID | DEPARTMENT_ID |
++-------------+------------+-----------+----------+--------------+------------+--------+--------+----------------+------------+---------------+
+|         512 | Nula       | claire    | nuclai   |       745658 | 2017-07-24 |     90 |   4000 |           2000 |         78 |            40 |
+|         256 | KAMANA     | BILLY     | kmn bill |       745658 | 2017-07-24 |     80 |   4000 |           2000 |         78 |            40 |
+|         256 | gwiza      | bontee    | bontee   |       745667 | 2012-07-23 |    860 |   4005 |           3000 |         78 |            30 |
++-------------+------------+-----------+----------+--------------+------------+--------+--------+----------------+------------+---------------+
+3 rows in set (0.00 sec)
+
+mysql> select EMPLOYEE_ID,FIRST_NAME,LAST_NAME,SALARY FROM employees;
++-------------+------------+-----------+--------+
+| EMPLOYEE_ID | FIRST_NAME | LAST_NAME | SALARY |
++-------------+------------+-----------+--------+
+|         512 | Nula       | claire    |   4000 |
+|         256 | KAMANA     | BILLY     |   4000 |
+|         256 | gwiza      | bontee    |   4005 |
++-------------+------------+-----------+--------+
+3 rows in set (0.00 sec)
+
+mysql> select EMPLOYEE where MANAGER_ID=100;
+ERROR 1054 (42S22): Unknown column 'EMPLOYEE' in 'field list'
+mysql> insert into employees values('520','clemance','karangwa','clemakar','74938470','2018-2-23','200','10000','2000','100','20');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> select*from employees;
++-------------+------------+-----------+----------+--------------+------------+--------+--------+----------------+------------+---------------+
+| EMPLOYEE_ID | FIRST_NAME | LAST_NAME | EMAIL    | PHONE_NUMBER | HIRE_DATE  | JOB_ID | SALARY | COMMISSION_PCT | MANAGER_ID | DEPARTMENT_ID |
++-------------+------------+-----------+----------+--------------+------------+--------+--------+----------------+------------+---------------+
+|         512 | Nula       | claire    | nuclai   |       745658 | 2017-07-24 |     90 |   4000 |           2000 |         78 |            40 |
+|         256 | KAMANA     | BILLY     | kmn bill |       745658 | 2017-07-24 |     80 |   4000 |           2000 |         78 |            40 |
+|         256 | gwiza      | bontee    | bontee   |       745667 | 2012-07-23 |    860 |   4005 |           3000 |         78 |            30 |
+|         520 | clemance   | karangwa  | clemakar |     74938470 | 2018-02-23 |    200 |  10000 |           2000 |        100 |            20 |
++-------------+------------+-----------+----------+--------------+------------+--------+--------+----------------+------------+---------------+
+4 rows in set (0.00 sec)
+
+mysql> SELECT Employee_Id, First_Name, Last_NameFROM EmployeesWHERE Manager_Id = 100;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'Manager_Id = 100' at line 1
+mysql> SELECT Employee_Id, First_Name, Last_Name FROM Employees WHERE MANAGER_ID = 100;
++-------------+------------+-----------+
+| Employee_Id | First_Name | Last_Name |
++-------------+------------+-----------+
+|         520 | clemance   | karangwa  |
++-------------+------------+-----------+
+1 row in set (0.00 sec)
+
+mysql> SELECT FIRST_NAME,LAST_NAME FROM EMPLOYEE WHERE SALARY <= 4800;
+ERROR 1054 (42S22): Unknown column 'FIRST_NAME' in 'field list'
+mysql> SELECT FIRST_NAME,LAST_NAME FROM employees WHERE SALARY <= 4800;
++------------+-----------+
+| FIRST_NAME | LAST_NAME |
++------------+-----------+
+| Nula       | claire    |
+| KAMANA     | BILLY     |
+| gwiza      | bontee    |
++------------+-----------+
+3 rows in set (0.00 sec)
+
+mysql> select*from employees;
++-------------+------------+-----------+----------+--------------+------------+--------+--------+----------------+------------+---------------+
+| EMPLOYEE_ID | FIRST_NAME | LAST_NAME | EMAIL    | PHONE_NUMBER | HIRE_DATE  | JOB_ID | SALARY | COMMISSION_PCT | MANAGER_ID | DEPARTMENT_ID |
++-------------+------------+-----------+----------+--------------+------------+--------+--------+----------------+------------+---------------+
+|         512 | Nula       | claire    | nuclai   |       745658 | 2017-07-24 |     90 |   4000 |           2000 |         78 |            40 |
+|         256 | KAMANA     | BILLY     | kmn bill |       745658 | 2017-07-24 |     80 |   4000 |           2000 |         78 |            40 |
+|         256 | gwiza      | bontee    | bontee   |       745667 | 2012-07-23 |    860 |   4005 |           3000 |         78 |            30 |
+|         520 | clemance   | karangwa  | clemakar |     74938470 | 2018-02-23 |    200 |  10000 |           2000 |        100 |            20 |
++-------------+------------+-----------+----------+--------------+------------+--------+--------+----------------+------------+---------------+
+4 rows in set (0.01 sec)
+
+mysql> insert into employees value(122,'austin','karemera','kareaust',2345678,'2015-28-20',300,7000,4000,80,30);
+Query OK, 1 row affected, 1 warning (0.00 sec)
+
+mysql> select*from employees;
++-------------+------------+-----------+----------+--------------+------------+--------+--------+----------------+------------+---------------+
+| EMPLOYEE_ID | FIRST_NAME | LAST_NAME | EMAIL    | PHONE_NUMBER | HIRE_DATE  | JOB_ID | SALARY | COMMISSION_PCT | MANAGER_ID | DEPARTMENT_ID |
++-------------+------------+-----------+----------+--------------+------------+--------+--------+----------------+------------+---------------+
+|         512 | Nula       | claire    | nuclai   |       745658 | 2017-07-24 |     90 |   4000 |           2000 |         78 |            40 |
+|         256 | KAMANA     | BILLY     | kmn bill |       745658 | 2017-07-24 |     80 |   4000 |           2000 |         78 |            40 |
+|         256 | gwiza      | bontee    | bontee   |       745667 | 2012-07-23 |    860 |   4005 |           3000 |         78 |            30 |
+|         520 | clemance   | karangwa  | clemakar |     74938470 | 2018-02-23 |    200 |  10000 |           2000 |        100 |            20 |
+|         122 | austin     | karemera  | kareaust |      2345678 | 0000-00-00 |    300 |   7000 |           4000 |         80 |            30 |
++-------------+------------+-----------+----------+--------------+------------+--------+--------+----------------+------------+---------------+
+5 rows in set (0.00 sec)
+
+mysql> SELECT FIRST_NAME FROM employees WHERE LAST_NAME = AUSTIN;
+ERROR 1054 (42S22): Unknown column 'AUSTIN' in 'where clause'
+mysql> SELECT FIRST_NAME FROM employees WHERE first_NAME = 'AUSTIN';
++------------+
+| FIRST_NAME |
++------------+
+| austin     |
++------------+
+1 row in set (0.00 sec)
+
+mysql> insert into employees values(21,'claire','kema','km','253673','12,38,374',40,2000,1000,60,60);
+Query OK, 1 row affected, 1 warning (0.00 sec)
+
+mysql> insert into employees values(21,'claire','kema','km','253673','12,38,374',40,2000,1000,60,70);
+Query OK, 1 row affected, 1 warning (0.00 sec)
+
+mysql> select*from employees;
++-------------+------------+-----------+----------+--------------+------------+--------+--------+----------------+------------+---------------+
+| EMPLOYEE_ID | FIRST_NAME | LAST_NAME | EMAIL    | PHONE_NUMBER | HIRE_DATE  | JOB_ID | SALARY | COMMISSION_PCT | MANAGER_ID | DEPARTMENT_ID |
++-------------+------------+-----------+----------+--------------+------------+--------+--------+----------------+------------+---------------+
+|         512 | Nula       | claire    | nuclai   |       745658 | 2017-07-24 |     90 |   4000 |           2000 |         78 |            40 |
+|         256 | KAMANA     | BILLY     | kmn bill |       745658 | 2017-07-24 |     80 |   4000 |           2000 |         78 |            40 |
+|         256 | gwiza      | bontee    | bontee   |       745667 | 2012-07-23 |    860 |   4005 |           3000 |         78 |            30 |
+|         520 | clemance   | karangwa  | clemakar |     74938470 | 2018-02-23 |    200 |  10000 |           2000 |        100 |            20 |
+|         122 | austin     | karemera  | kareaust |      2345678 | 0000-00-00 |    300 |   7000 |           4000 |         80 |            30 |
+|          21 | claire     | kema      | km       |       253673 | 0000-00-00 |     40 |   2000 |           1000 |         60 |            60 |
+|          21 | claire     | kema      | km       |       253673 | 0000-00-00 |     40 |   2000 |           1000 |         60 |            70 |
++-------------+------------+-----------+----------+--------------+------------+--------+--------+----------------+------------+---------------+
+7 rows in set (0.00 sec)
+
+mysql> SELECT FIRST_NAME,LAST_NAME FROM employees WHERE DEPARTMENT_ID IN ('60','70','80');
++------------+-----------+
+| FIRST_NAME | LAST_NAME |
++------------+-----------+
+| claire     | kema      |
+| claire     | kema      |
++------------+-----------+
+2 rows in set (0.00 sec)
+
+mysql> CREATE TABLE SALES (SALES_NO VARCHAR(5) PRIMARY KEY ,SALESNAME VARCHAR (23), BRANCH VARCHAR (24),SALESAMOUNT INT (20),DOP VARCHAR (30));
+Query OK, 0 rows affected, 1 warning (0.03 sec)
+
+mysql>  INSERT INTO SALES VALUES ("SA41","cassava","RUB",123,"2/2/2024");
+Query OK, 1 row affected (0.00 sec)
+
+mysql> UPDATE SALES SET DOP="2-2-2024" WHERE SALES_NO="SA41";
+Query OK, 1 row affected (0.00 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> SELECT*FROM SALES;
++----------+-----------+--------+-------------+----------+
+| SALES_NO | SALESNAME | BRANCH | SALESAMOUNT | DOP      |
++----------+-----------+--------+-------------+----------+
+| SA41     | cassava   | RUB    |         123 | 2-2-2024 |
++----------+-----------+--------+-------------+----------+
+1 row in set (0.00 sec)
+
+mysql>  INSERT INTO SALES VALUES ("SAL22","RICE","RUB",250,"12-MITC-2024");
+Query OK, 1 row affected (0.00 sec)
+
+mysql> INSERT INTO SALES VALUES ("SAL44","MAIZE","RUB",120,"12-SEPT-2024");
+Query OK, 1 row affected (0.00 sec)
+
+mysql>  INSERT INTO SALES VALUES ("SAL55","MAIZE","RUB",120,"12-DEC-2024");
+Query OK, 1 row affected (0.00 sec)
+
+mysql> UPDATE SALES SET DOP="13-SEP-2024" WHERE SALES_NO="SAL41";
+Query OK, 0 rows affected (0.00 sec)
+Rows matched: 0  Changed: 0  Warnings: 0
+
+mysql> select*from sales;
++----------+-----------+--------+-------------+--------------+
+| SALES_NO | SALESNAME | BRANCH | SALESAMOUNT | DOP          |
++----------+-----------+--------+-------------+--------------+
+| SA41     | cassava   | RUB    |         123 | 2-2-2024     |
+| SAL22    | RICE      | RUB    |         250 | 12-MITC-2024 |
+| SAL44    | MAIZE     | RUB    |         120 | 12-SEPT-2024 |
+| SAL55    | MAIZE     | RUB    |         120 | 12-DEC-2024  |
++----------+-----------+--------+-------------+--------------+
+4 rows in set (0.00 sec)
+
+mysql>  SELECT Branch, SUM(SalesAmount) AS "TotalSales" FROM Sales GROUP BY Branch;
++--------+------------+
+| Branch | TotalSales |
++--------+------------+
+| RUB    |        613 |
++--------+------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT Branch, AVG(SalesAmount) AS "AvgSales" FROM Sales GROUP BY Branch;
++--------+----------+
+| Branch | AvgSales |
++--------+----------+
+| RUB    | 153.2500 |
++--------+----------+
+1 row in set (0.00 sec)
+
+mysql>  SELECT SalesName, DOP FROM Sales WHERE DOP LIKE "%DEC%";
++-----------+-------------+
+| SalesName | DOP         |
++-----------+-------------+
+| MAIZE     | 12-DEC-2024 |
++-----------+-------------+
+1 row in set (0.00 sec)
+
+mysql> desc salesname
+    -> ;
+ERROR 1146 (42S02): Table 'epiphanie.salesname' doesn't exist
+mysql>
+mysql> desc sales;
++-------------+-------------+------+-----+---------+-------+
+| Field       | Type        | Null | Key | Default | Extra |
++-------------+-------------+------+-----+---------+-------+
+| SALES_NO    | varchar(5)  | NO   | PRI | NULL    |       |
+| SALESNAME   | varchar(23) | YES  |     | NULL    |       |
+| BRANCH      | varchar(24) | YES  |     | NULL    |       |
+| SALESAMOUNT | int         | YES  |     | NULL    |       |
+| DOP         | varchar(30) | YES  |     | NULL    |       |
++-------------+-------------+------+-----+---------+-------+
+5 rows in set (0.00 sec)
+
+mysql> select * from sales
+    -> ;
++----------+-----------+--------+-------------+--------------+
+| SALES_NO | SALESNAME | BRANCH | SALESAMOUNT | DOP          |
++----------+-----------+--------+-------------+--------------+
+| SA41     | cassava   | RUB    |         123 | 2-2-2024     |
+| SAL22    | RICE      | RUB    |         250 | 12-MITC-2024 |
+| SAL44    | MAIZE     | RUB    |         120 | 12-SEPT-2024 |
+| SAL55    | MAIZE     | RUB    |         120 | 12-DEC-2024  |
++----------+-----------+--------+-------------+--------------+
+4 rows in set (0.00 sec)
+
+mysql> select salesname from sales from sales order by Date_format(DOB, %m%);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'from sales order by Date_format(DOB, %m%)' at line 1
+mysql> SELECT Salesname, DATE_FORMAT(DOB, '%b') AS Month, DATE_FORMAT(DOB, '%d-%b-%y') AS DOB FROM Sales ORDER BY MONTH(DOB);
++-----------+-------+-----------+
+| Salesname | Month | DOB       |
++-----------+-------+-----------+
+| cassava   | Jan   | 23-Jan-25 |
+| RICE      | Jan   | 31-Jan-25 |
+| MAIZE     | Jan   | 14-Jan-25 |
+| MAIZE     | Jan   | 21-Jan-25 |
++-----------+-------+-----------+
+4 rows in set (0.02 sec)
+
+mysql> select * from sales;
++----------+-----------+--------+-------------+------------+
+| SALES_NO | SALESNAME | BRANCH | SALESAMOUNT | DOB        |
++----------+-----------+--------+-------------+------------+
+| SA41     | cassava   | RUB    |         123 | 2025-01-23 |
+| SAL22    | RICE      | RUB    |         250 | 2025-01-31 |
+| SAL44    | MAIZE     | RUB    |         120 | 2025-01-14 |
+| SAL55    | MAIZE     | RUB    |         120 | 2025-01-21 |
++----------+-----------+--------+-------------+------------+
+4 rows in set (0.00 sec)
+
+mysql> SELECT DATE_FORMAT(DOB, '%d-%b-%y') AS DOB from sales where MONTH(DOB) = 12;
+Empty set (0.00 sec)
+
+mysql> SELECT DATE_FORMAT(DOB, '%d-%b-%y') AS DOB from sales where MONTH(DOB) = 12;
++-----------+
+| DOB       |
++-----------+
+| 23-Dec-25 |
++-----------+
+1 row in set (0.00 sec)
+
+mysql>
